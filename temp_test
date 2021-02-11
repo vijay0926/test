@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<conio.h>
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+    string str ="";
+    cout<<"Enter the Input Value : ";
+    getline(cin,str);
+int     count = 0;
+    bool con = false;
+    int i=0,start = 0,stop = 0;
+
+    while(i<str.length())
+    {
+        if(str[i]=='(')
+        {
+            start = i;
+            con = true;
+            count = 1;
+        }
+        if(count == 0 && con == true && str[i]==')')
+        {
+            string temp = str.substr(start-1,stop-start-1);
+            string t = "";
+
+            if(str[i+1]!='\0'&&str[i+1]=='{'&&str[i+3]!='\0'&&str[i+3]!='}')
+            {
+                int a = (int)str[i+2];
+
+                for(int k=0;k<a;k++)
+                {
+                    t+=temp;
+                }
+                if(str[i+4]!= '\0')
+                {
+                    string c = str.substr(i+4,str.length()-i-4-1);
+                    t = t+c;
+                }
+                i = i + 3 ;
+            }
+            else
+            {
+                t= temp;
+                if(str[i+1]!= '\0')
+                {
+                    string c = str.substr(i+1,str.length()-i-1-1);
+                    t = t+c;
+                }
+
+            }
+
+            str = str.substr(0,start) + t;
+
+        }
+        i++;
+    }
+    cout<<str;
+    return 0;
+}
